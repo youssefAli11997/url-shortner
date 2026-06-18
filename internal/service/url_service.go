@@ -10,5 +10,12 @@ type URLService interface {
 }
 
 func NewURLService() URLService {
-	return &MockURLService{}
+	return &MockURLService{
+		EncodeFunc: func(ctx context.Context, originalURL string) (string, error) {
+			return "http://localhost:8080/abc123", nil
+		},
+		DecodeFunc: func(ctx context.Context, shortURL string) (string, error) {
+			return "https://google.com", nil
+		},
+	}
 }

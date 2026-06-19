@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/joho/godotenv"
 
 	"url-shortener/internal/handler"
 	"url-shortener/internal/repository"
@@ -24,6 +25,11 @@ const (
 
 func main() {
 	ctx := context.Background()
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	dbURL := os.Getenv("DATABASE_URL")
 	baseURL := os.Getenv("BASE_URL")
